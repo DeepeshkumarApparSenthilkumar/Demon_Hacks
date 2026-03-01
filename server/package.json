@@ -1,0 +1,32 @@
+{
+  "name": "chi360-server",
+  "version": "1.0.0",
+  "description": "chi360 secure backend API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "otplib": "^12.0.1",
+    "qrcode": "^1.5.3",
+    "rate-limit-redis": "^4.2.0",
+    "redis": "^4.6.12",
+    "uuid": "^9.0.0",
+    "xss": "^1.0.14"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
