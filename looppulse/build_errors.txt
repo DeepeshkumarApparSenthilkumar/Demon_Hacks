@@ -1,0 +1,23 @@
+
+> tmpapp@0.0.0 build
+> tsc -b && vite build
+
+src/screens/AlertsScreen.tsx(2,34): error TS1484: 'Alert' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/screens/AlertsScreen.tsx(2,41): error TS1484: 'BusinessProfile' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/screens/ChatScreen.tsx(3,23): error TS1484: 'BusinessProfile' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/screens/DashboardScreen.tsx(2,10): error TS1484: 'BusinessProfile' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/screens/ForecastScreen.tsx(1,20): error TS6133: 'useEffect' is declared but its value is never read.
+src/screens/ForecastScreen.tsx(2,22): error TS1484: 'BusinessProfile' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/screens/ForecastScreen.tsx(6,21): error TS6133: 'setProfile' is declared but its value is never read.
+src/screens/ProfileScreen.tsx(1,1): error TS6133: 'useState' is declared but its value is never read.
+src/screens/ProfileScreen.tsx(2,37): error TS1484: 'BusinessProfile' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/aiService.ts(1,10): error TS1484: 'BusinessProfile' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/aiService.ts(8,5): error TS6133: 'newMessage' is declared but its value is never read.
+src/services/aiService.ts(36,45): error TS6133: 'profile' is declared but its value is never read.
+src/services/aiService.ts(51,44): error TS6133: 'profile' is declared but its value is never read.
+src/services/aiService.ts(51,70): error TS6133: 'demandJson' is declared but its value is never read.
+src/services/alertService.ts(1,21): error TS1484: 'Alert' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/alertService.ts(1,28): error TS1484: 'BusinessProfile' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.
+src/services/alertService.ts(3,32): error TS6133: 'profile' is declared but its value is never read.
+src/services/alertService.ts(3,58): error TS6133: 'onNewAlert' is declared but its value is never read.
+src/services/alertService.ts(13,34): error TS6133: 'profile' is declared but its value is never read.

@@ -1,0 +1,8 @@
+
+> tmpapp@0.0.0 build
+> tsc -b && vite build
+
+src/services/aiService.ts(8,5): error TS6133: 'newMessage' is declared but its value is never read.
+src/services/aiService.ts(36,45): error TS6133: 'profile' is declared but its value is never read.
+src/services/aiService.ts(51,44): error TS6133: 'profile' is declared but its value is never read.
+src/services/aiService.ts(51,70): error TS6133: 'demandJson' is declared but its value is never read.
