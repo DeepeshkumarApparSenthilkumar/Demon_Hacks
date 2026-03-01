@@ -3,7 +3,9 @@ transit.py — CTA Bus & Train positions + arrival predictions for BusGuard Chic
 Paste your CTA keys directly below.
 """
 
+import os
 import random
+from dotenv import load_dotenv
 import requests
 from datetime import datetime, timezone, timedelta
 
