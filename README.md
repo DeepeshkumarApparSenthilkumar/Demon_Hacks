@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Chicago Housing Intelligence Platform
 
-## Getting Started
+An advanced, AI-powered real estate intelligence platform built for the Chicago market.
 
-First, run the development server:
+## Architecture
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+*   **Framework**: Next.js 14 App Router
+*   **Database**: PostgreSQL with PostGIS extension (hosted on Supabase or Railway)
+*   **ORM**: Prisma
+*   **Authentication**: Clerk
+*   **UI/Styling**: Tailwind CSS + ShadCN UI + Framer Motion
+*   **Mapping**: Mapbox GL JS + React-Map-GL
+*   **AI Services**: Vercel AI SDK 3.0 + OpenAI (gpt-4o)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Setup Instructions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1.  **Environment Variables**:
+    *   Copy `.env.example` to `.env.local`
+    *   Fill in keys for:
+        *   `DATABASE_URL` (Requires a Postgres database with PostGIS enabled)
+        *   Clerk Auth Keys (`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`)
+        *   `OPENAI_API_KEY`
+        *   `NEXT_PUBLIC_MAPBOX_TOKEN`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2.  **Install Dependencies**:
+    ```bash
+    npm install
+    ```
 
-## Learn More
+3.  **Database Initialization**:
+    Ensure your Postgres URL points to a database with the `postgis` extension enabled.
+    ```sql
+    -- If setting up DB manually, run:
+    CREATE EXTENSION postgis;
+    ```
+    Push the schema:
+    ```bash
+    npx prisma db push
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+4.  **Seed the Database**:
+    This will generate realistic Chicago mock data with PostGIS points.
+    ```bash
+    npm run prisma seed
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5.  **Run Development Server**:
+    ```bash
+    npm run dev
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Cloud Deployment (Vercel)
 
-## Deploy on Vercel
+1.  Create a project on Vercel and link your GitHub repository.
+2.  Add all environment variables from `.env.local` to the Vercel project settings.
+3.  Add the `DATABASE_URL` as well (point it to your production Supabase database).
+4.  Override the Build Command in Vercel to:
+    ```bash
+    npx prisma generate && npx prisma db push && next build
+    ```
+5.  Deploy.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Scalability Notes
+- PostGIS queries (`ST_DWithin`) are handled on the DB layer for performance.
+- AI route handlers use streaming (`ai/react` `useChat`) to avoid Vercel Serverless Function timeout limits.
+- Prisma client uses a singleton in dev to avoid connection exhaustion, but consider Prisma Accelerate for heavy production workloads.
