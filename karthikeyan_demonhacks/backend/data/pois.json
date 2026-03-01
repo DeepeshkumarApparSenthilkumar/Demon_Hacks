@@ -1,0 +1,134 @@
+[
+  {
+    "id": "poi_001",
+    "name": "Riverfront Coffee Co.",
+    "lat": 41.8839,
+    "lng": -87.6233,
+    "categories": ["coffee", "food"],
+    "average_visit_minutes": 20,
+    "crowd_level": "MEDIUM",
+    "short_fact": "A cozy cafe with large windows overlooking the Chicago River, famous for their single-origin espresso blends.",
+    "opening_hours": "07:00-20:00"
+  },
+  {
+    "id": "poi_002",
+    "name": "Cloud Gate (The Bean)",
+    "lat": 41.8829,
+    "lng": -87.6233,
+    "categories": ["architecture", "art"],
+    "average_visit_minutes": 25,
+    "crowd_level": "HIGH",
+    "short_fact": "Anish Kapoor's iconic stainless steel sculpture reflects Chicago's skyline and has become a symbol of modern architecture.",
+    "opening_hours": "06:00-23:00"
+  },
+  {
+    "id": "poi_003",
+    "name": "Art Institute of Chicago",
+    "lat": 41.8764,
+    "lng": -87.6244,
+    "categories": ["history", "art", "architecture"],
+    "average_visit_minutes": 45,
+    "crowd_level": "MEDIUM",
+    "short_fact": "Founded in 1879, this world-renowned museum houses over 300,000 artworks spanning from ancient times to contemporary.",
+    "opening_hours": "10:00-17:00"
+  },
+  {
+    "id": "poi_004",
+    "name": "Grant Park",
+    "lat": 41.8716,
+    "lng": -87.6220,
+    "categories": ["parks", "waterfront"],
+    "average_visit_minutes": 30,
+    "crowd_level": "MEDIUM",
+    "short_fact": "A 319-acre urban park along Lake Michigan featuring sculptures, gardens, and stunning views of the city skyline.",
+    "opening_hours": "06:00-22:00"
+  },
+  {
+    "id": "poi_005",
+    "name": "Millennium Park",
+    "lat": 41.8827,
+    "lng": -87.6233,
+    "categories": ["parks", "art"],
+    "average_visit_minutes": 35,
+    "crowd_level": "HIGH",
+    "short_fact": "A 24.5-acre public park featuring the AT&T Plaza, Crown Fountain, and Jay Pritzker Pavilion with free concerts.",
+    "opening_hours": "06:00-23:00"
+  },
+  {
+    "id": "poi_006",
+    "name": "Chicago History Museum",
+    "lat": 41.9110,
+    "lng": -87.6297,
+    "categories": ["history"],
+    "average_visit_minutes": 40,
+    "crowd_level": "LOW",
+    "short_fact": "Established in 1856, this museum preserves Chicago's rich history from frontier settlement to modern times.",
+    "opening_hours": "09:30-16:30"
+  },
+  {
+    "id": "poi_007",
+    "name": "Lacuna Lofts - Street Art District",
+    "lat": 41.8544,
+    "lng": -87.6862,
+    "categories": ["street art", "art"],
+    "average_visit_minutes": 30,
+    "crowd_level": "LOW",
+    "short_fact": "A vibrant artist community featuring colorful murals, galleries, and street art installations throughout the neighborhood.",
+    "opening_hours": "00:00-23:59"
+  },
+  {
+    "id": "poi_008",
+    "name": "Navy Pier",
+    "lat": 41.8860,
+    "lng": -87.6095,
+    "categories": ["waterfront", "food"],
+    "average_visit_minutes": 40,
+    "crowd_level": "HIGH",
+    "short_fact": "A historic pier extending into Lake Michigan with restaurants, shops, attractions, and a 148-foot tall Ferris wheel.",
+    "opening_hours": "10:00-22:00"
+  },
+  {
+    "id": "poi_009",
+    "name": "Chicago Cultural Center",
+    "lat": 41.8856,
+    "lng": -87.6244,
+    "categories": ["history", "architecture"],
+    "average_visit_minutes": 30,
+    "crowd_level": "LOW",
+    "short_fact": "A 1897 Beaux-Arts landmark featuring stunning architecture, exhibitions, and free cultural programming.",
+    "opening_hours": "10:00-19:00"
+  },
+  {
+    "id": "poi_010",
+    "name": "Intelligentsia Coffee",
+    "lat": 41.8844,
+    "lng": -87.6180,
+    "categories": ["coffee", "food"],
+    "average_visit_minutes": 20,
+    "crowd_level": "MEDIUM",
+    "short_fact": "A specialty coffee roaster and cafe known for direct-trade coffees and artisanal pastries from local bakeries.",
+    "opening_hours": "06:00-18:00"
+  },
+  {
+    "id": "poi_011",
+    "name": "Museum of Science and Industry",
+    "lat": 41.7904,
+    "lng": -87.5822,
+    "categories": ["history", "architecture"],
+    "average_visit_minutes": 60,
+    "crowd_level": "MEDIUM",
+    "short_fact": "An interactive museum featuring the U-505 submarine, a Boeing 727, and hundreds of hands-on exhibits.",
+    "opening_hours": "09:30-16:00"
+  },
+  {
+    "id": "poi_012",
+    "name": "The Magnificent Mile",
+    "lat": 41.8952,
+    "lng": -87.6247,
+    "categories": ["shopping"],
+    "average_visit_minutes": 45,
+    "crowd_level": "HIGH",
+    "short_fact": "A 13-block stretch of North Michigan Avenue lined with luxury boutiques, flagship stores, and world-class dining.",
+    "opening_hours": "09:00-21:00"
+  }
+]

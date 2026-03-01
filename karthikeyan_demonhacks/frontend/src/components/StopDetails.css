@@ -1,0 +1,159 @@
+.stop-details-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.stop-header {
+  margin-bottom: 15px;
+}
+
+.stop-badge {
+  display: inline-block;
+  background: #667eea;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.stop-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 22px;
+}
+
+.stop-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.tag {
+  background: #f0f0f0;
+  color: #666;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.stop-description {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.stop-description h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stop-description p {
+  margin: 0 0 10px 0;
+  color: #333;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.stop-description p.fact {
+  color: #666;
+  font-style: italic;
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.stop-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-label {
+  color: #999;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.meta-value {
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.crowd-level {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.crowd-low {
+  background: #d4edda;
+  color: #155724;
+}
+
+.crowd-medium {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.crowd-high {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.transition-box {
+  background: #f0f4ff;
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.transition-box h3 {
+  margin: 0 0 8px 0;
+  color: #667eea;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.transition-box p {
+  margin: 0;
+  color: #333;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .stop-details-card {
+    padding: 15px;
+  }
+
+  .stop-header h2 {
+    font-size: 18px;
+  }
+
+  .stop-meta {
+    grid-template-columns: 1fr;
+  }
+}

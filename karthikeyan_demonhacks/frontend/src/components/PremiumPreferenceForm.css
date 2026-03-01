@@ -1,0 +1,650 @@
+/* ============================================
+   MODERN TRENDY PREFERENCE FORM - 2026 STYLE
+   Minimalist, Contemporary, Intuitive Design
+   ============================================ */
+
+:root {
+  --primary: #3b82f6;
+  --primary-dark: #1e40af;
+  --secondary: #8b5cf6;
+  --accent: #ec4899;
+  --bg-dark: #0f172a;
+  --bg-light: #1e293b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+}
+
+.premium-form-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Subtle animated background */
+.premium-form-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  opacity: 0.3;
+}
+
+.gradient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.15;
+  animation: float 20s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, #3b82f6, transparent);
+  top: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, #8b5cf6, transparent);
+  bottom: -80px;
+  right: -80px;
+  animation-delay: 4s;
+}
+
+.orb-3 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.8), transparent);
+  bottom: 20%;
+  left: 10%;
+  animation-delay: 2s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, -50px) scale(0.9);
+  }
+  75% {
+    transform: translate(40px, -20px) scale(1.05);
+  }
+}
+
+/* Main Form Card */
+.premium-form-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(30px);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4),
+    0 0 1px rgba(255, 255, 255, 0.1) inset;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 50px;
+  max-width: 650px;
+  width: 100%;
+  animation: slideUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.premium-form-card.animate-in {
+  animation: slideUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Form Header */
+.form-header {
+  margin-bottom: 45px;
+  text-align: center;
+}
+
+.header-content {
+  margin-bottom: 35px;
+}
+
+.form-title {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 0 0 12px 0;
+  color: #ffffff;
+  letter-spacing: -0.8px;
+}
+
+.form-subtitle {
+  font-size: 15px;
+  color: #cbd5e1;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 5px;
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  border-radius: 10px;
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.progress-text {
+  font-size: 13px;
+  color: #999;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Step Content */
+.step-content {
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.step-panel {
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.4s ease-in;
+}
+
+.step-panel.fade-out {
+  animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.step-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+  display: block;
+  animation: bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.step-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #222;
+}
+
+.step-subtitle {
+  font-size: 16px;
+  color: #888;
+  margin: 0 0 30px 0;
+}
+
+/* ========== Step 1: Time Selection ========== */
+
+.time-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.time-value {
+  font-size: 56px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.time-unit {
+  font-size: 18px;
+  color: #999;
+  font-weight: 600;
+}
+
+.time-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    #e0e0e0 0%,
+    #d0d0d0 50%,
+    #e0e0e0 100%
+  );
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.time-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
+}
+
+.time-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.time-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.time-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.preset-times {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.preset-btn {
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: white;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.preset-btn:hover {
+  border-color: #667eea;
+  color: #667eea;
+  transform: translateY(-2px);
+}
+
+.preset-btn.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* ========== Step 2: Interests Selection ========== */
+
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.interest-card {
+  padding: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+}
+
+.interest-card:hover {
+  border-color: #d0d0d0;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.interest-card.selected {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+  transform: translateY(-4px);
+}
+
+.interest-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.interest-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.interest-card.selected .interest-label {
+  color: #667eea;
+}
+
+.selected-count {
+  font-size: 13px;
+  color: #999;
+  margin-top: 10px;
+}
+
+/* ========== Step 3 & 4: Radio Groups ========== */
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radio-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.radio-card:hover {
+  border-color: #d0d0d0;
+  background: #fafafa;
+}
+
+.radio-card input[type='radio'] {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  accent-color: #667eea;
+  flex-shrink: 0;
+}
+
+.radio-card input[type='radio']:checked + .radio-label {
+  color: #667eea;
+  font-weight: 600;
+}
+
+.radio-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+
+.radio-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.radio-description {
+  font-size: 13px;
+  color: #999;
+}
+
+.radio-card:has(input:checked) {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
+}
+
+/* ========== Form Footer ========== */
+
+.form-footer {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.btn-primary,
+.btn-secondary {
+  flex: 1;
+  padding: 15px 28px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.5);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--text-secondary);
+  border: 1.5px solid rgba(148, 163, 184, 0.3);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: rgba(148, 163, 184, 0.25);
+  border-color: var(--text-secondary);
+  transform: translateY(-3px);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-generate {
+  position: relative;
+}
+
+.btn-generate.loading {
+  pointer-events: none;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========== Responsive Design ========== */
+
+@media (max-width: 640px) {
+  .premium-form-card {
+    padding: 24px;
+  }
+
+  .form-title {
+    font-size: 24px;
+  }
+
+  .step-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  .step-title {
+    font-size: 22px;
+  }
+
+  .interests-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .interest-card {
+    padding: 16px 12px;
+  }
+
+  .preset-times {
+    grid-template-columns: 1fr;
+  }
+
+  .form-footer {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .gradient-orb {
+    filter: blur(60px);
+  }
+
+  .orb-1 {
+    width: 350px;
+    height: 350px;
+  }
+
+  .orb-2 {
+    width: 280px;
+    height: 280px;
+  }
+
+  .orb-3 {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  .premium-form-container {
+    padding: 12px;
+  }
+
+  .premium-form-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .form-title {
+    font-size: 22px;
+  }
+
+  .step-content {
+    min-height: 350px;
+  }
+
+  .time-value {
+    font-size: 48px;
+  }
+
+  .step-icon {
+    font-size: 44px;
+  }
+
+  .step-title {
+    font-size: 20px;
+  }
+}

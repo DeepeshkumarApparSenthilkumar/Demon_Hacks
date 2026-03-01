@@ -1,0 +1,392 @@
+.improved-stops-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+/* Active Stop Card */
+.active-stop-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  display: flex;
+  gap: 16px;
+}
+
+.active-stop-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.active-stop-info {
+  flex: 1;
+}
+
+.active-stop-info h2 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.stop-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.tag {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+}
+
+.stop-description {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.95;
+}
+
+.stop-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 11px;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.crowd-low {
+  color: #4caf50;
+}
+
+.crowd-medium {
+  color: #ffc107;
+}
+
+.crowd-high {
+  color: #ff5252;
+}
+
+/* Transition Card */
+.transition-card {
+  background: #f0f4ff;
+  border-left: 4px solid #667eea;
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.transition-icon {
+  font-size: 24px;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.transition-text {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Stops Carousel */
+.stops-carousel {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.carousel-title {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.carousel-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.carousel-card:hover {
+  background: #f0f0f0;
+  border-left-color: #667eea;
+}
+
+.carousel-card.active {
+  background: #e8ecff;
+  border-color: #667eea;
+  border-left-color: #667eea;
+}
+
+.card-header {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.card-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #ddd;
+  color: #666;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.card-number.active {
+  background: #667eea;
+  color: white;
+}
+
+.card-title-section {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-title-section h4 {
+  margin: 0 0 2px 0;
+  font-size: 13px;
+  color: #333;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-categories {
+  margin: 0;
+  font-size: 11px;
+  color: #999;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-expanded {
+  width: 100%;
+  padding: 10px 0;
+  border-top: 1px solid #e0e0e0;
+  grid-column: 1 / -1;
+}
+
+.expanded-content {
+  padding: 10px 0 0 42px;
+}
+
+.expanded-description {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.expanded-meta {
+  display: flex;
+  gap: 8px;
+}
+
+.meta-badge {
+  display: inline-block;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #666;
+}
+
+.meta-badge.crowd {
+  border-color: transparent;
+  font-weight: 500;
+}
+
+.card-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #999;
+  font-size: 16px;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.carousel-card:hover .card-action {
+  opacity: 1;
+  color: #667eea;
+}
+
+/* Journey Summary */
+.journey-summary {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.journey-summary h3 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.summary-timeline {
+  position: relative;
+  padding-left: 30px;
+}
+
+.summary-timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 20px;
+  bottom: 0;
+  width: 2px;
+  background: #ddd;
+}
+
+.timeline-item {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -27px;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  background: #667eea;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #667eea;
+}
+
+.timeline-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.timeline-title {
+  font-size: 13px;
+  color: #333;
+  font-weight: 500;
+}
+
+.timeline-meta {
+  font-size: 11px;
+  color: #999;
+}
+
+.timeline-duration {
+  font-size: 11px;
+  color: #667eea;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Scrollbar styling */
+.carousel-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.carousel-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .active-stop-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .active-stop-info h2 {
+    font-size: 18px;
+  }
+
+  .stop-stats {
+    width: 100%;
+    gap: 30px;
+  }
+
+  .carousel-card {
+    padding: 10px;
+  }
+
+  .card-title-section h4 {
+    font-size: 12px;
+  }
+}
