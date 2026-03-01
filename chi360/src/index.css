@@ -1,0 +1,50 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #080810;
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.07);
+  --border-bright: rgba(255, 255, 255, 0.14);
+  --indigo: #4f6ef7;
+  --indigo-bright: #6b84ff;
+  --indigo-dim: rgba(79, 110, 247, 0.15);
+  --violet: #7c5cfc;
+  --text: #e8eaf6;
+  --text-muted: rgba(232, 234, 246, 0.4);
+  --text-dim: rgba(232, 234, 246, 0.22);
+  --pill-bg: rgba(18, 18, 32, 0.92);
+  --card-bg: rgba(10, 10, 22, 0.82);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #0a0a16 inset;
+  -webkit-text-fill-color: var(--text);
+  caret-color: var(--text);
+}
+
+::selection {
+  background: rgba(79, 110, 247, 0.3);
+  color: #fff;
+}
