@@ -1,7 +1,6 @@
-// All requests go to our own Express backend at /api
-// The backend holds all API keys — this file has NO secrets
-
-const BASE = "/api";
+const BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : "/api";
 
 async function request(path, options = {}) {
   try {
