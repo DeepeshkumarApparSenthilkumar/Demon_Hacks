@@ -1,0 +1,161 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [postgis]
+}
+
+model User {
+  id             String            @id @default(cuid())
+  clerkId        String            @unique
+  email          String            @unique
+  firstName      String?
+  lastName       String?
+  savedFavorites SavedFavorites[]
+  searches       SearchHistory[]
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+}
+
+model Listing {
+  id               String            @id @default(cuid())
+  externalId       String?           @unique
+  address          String
+  unit             String?
+  neighborhoodId   String
+  neighborhood     Neighborhood      @relation(fields: [neighborhoodId], references: [id])
+  lat              Float
+  lng              Float
+  location         Unsupported("geometry(Point, 4326)")?
+  price            Float
+  bedrooms         Int
+  bathrooms        Float
+  sqft             Int?
+  description      String?
+  images           String[]
+  petFriendly      Boolean           @default(false)
+  parkingIncluded  Boolean           @default(false)
+  utilitiesIncluded Boolean          @default(false)
+  section8Accepted Boolean           @default(false)
+  availableFrom    DateTime
+  landlordId       String?
+  landlord         Landlord?         @relation(fields: [landlordId], references: [id])
+  rentHistory      RentHistory[]
+  savedBy          SavedFavorites[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@index([neighborhoodId])
+  @@index([price])
+  @@index([bedrooms])
+}
+
+model Neighborhood {
+  id               String            @id @default(cuid())
+  name             String            @unique
+  boundaries       Unsupported("geometry(Polygon, 4326)")?
+  centerLat        Float
+  centerLng        Float
+  listings         Listing[]
+  crimeStats       CrimeStat[]
+  demographics     Demographic[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model CrimeStat {
+  id               String            @id @default(cuid())
+  neighborhoodId   String
+  neighborhood     Neighborhood      @relation(fields: [neighborhoodId], references: [id])
+  year             Int
+  month            Int
+  violentCount     Int
+  propertyCount    Int
+  crimeScore       Float             // Calculated 0-100
+  createdAt        DateTime          @default(now())
+
+  @@unique([neighborhoodId, year, month])
+}
+
+model Demographic {
+  id               String            @id @default(cuid())
+  neighborhoodId   String            @unique
+  neighborhood     Neighborhood      @relation(fields: [neighborhoodId], references: [id])
+  population       Int
+  medianIncome     Float
+  livabilityScore  Float             // Calculated 0-100
+  gentrificationIdx Float            // Calculated 0-100
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model RentHistory {
+  id               String            @id @default(cuid())
+  listingId        String
+  listing          Listing           @relation(fields: [listingId], references: [id])
+  price            Float
+  recordedAt       DateTime          @default(now())
+
+  @@index([listingId])
+}
+
+model Landlord {
+  id               String            @id @default(cuid())
+  name             String
+  company          String?
+  reputationScore  Float             // Calculated 0-100
+  listings         Listing[]
+  evictions        Eviction[]
+  complaints       Complaint[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model Eviction {
+  id               String            @id @default(cuid())
+  landlordId       String
+  landlord         Landlord          @relation(fields: [landlordId], references: [id])
+  address          String
+  date             DateTime
+  reason           String?
+  createdAt        DateTime          @default(now())
+
+  @@index([landlordId])
+}
+
+model Complaint {
+  id               String            @id @default(cuid())
+  landlordId       String
+  landlord         Landlord          @relation(fields: [landlordId], references: [id])
+  type             String            // e.g., "Maintenance", "Heat"
+  description      String?
+  status           String
+  date             DateTime
+  createdAt        DateTime          @default(now())
+
+  @@index([landlordId])
+}
+
+model SavedFavorites {
+  id               String            @id @default(cuid())
+  userId           String
+  user             User              @relation(fields: [userId], references: [id])
+  listingId        String
+  listing          Listing           @relation(fields: [listingId], references: [id])
+  createdAt        DateTime          @default(now())
+
+  @@unique([userId, listingId])
+}
+
+model SearchHistory {
+  id               String            @id @default(cuid())
+  userId           String
+  user             User              @relation(fields: [userId], references: [id])
+  query            String
+  filters          Json?             // Stored structured filters
+  createdAt        DateTime          @default(now())
+}

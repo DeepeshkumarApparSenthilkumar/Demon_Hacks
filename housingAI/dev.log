@@ -1,0 +1,119 @@
+
+> demon-hack@0.1.0 dev
+> next dev
+
+  ▲ Next.js 14.2.25
+  - Local:        http://localhost:3000
+  - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 1005ms
+ ✓ Compiled /src/middleware in 241ms (234 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 1838ms (1187 modules)
+ GET / 200 in 2004ms
+ ✓ Compiled in 106ms (437 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (192kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+ GET / 200 in 15ms
+ GET / 200 in 21ms
+ GET / 200 in 20ms
+ ✓ Compiled /api/listings/search in 135ms (725 modules)
+ POST / 200 in 229ms
+ POST / 200 in 4ms
+ GET /api/listings/search? 200 in 568ms
+ GET /api/listings/search? 200 in 129ms
+ ✓ Compiled /property/[id] in 288ms (1201 modules)
+ ✓ Compiled /_not-found in 77ms (1204 modules)
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /_next/static/webpack/27e6e9b94e1b61c6.webpack.hot-update.json 404 in 146ms
+ GET / 200 in 19ms
+ POST / 200 in 9ms
+ POST / 200 in 3ms
+ GET /api/listings/search? 200 in 206ms
+ GET /api/listings/search? 200 in 160ms
+ GET /property/cmm71qe0e005qogbzw2fsfgt8 200 in 21ms
+ GET / 200 in 16ms
+ GET /api/listings/search? 200 in 210ms
+ GET /api/listings/search? 200 in 121ms
+ ✓ Compiled /lease-analyzer in 130ms (1228 modules)
+ GET /lease-analyzer 200 in 41ms
+ ✓ Compiled /matchmaker in 287ms (1246 modules)
+ GET /matchmaker 200 in 25ms
+ GET /lease-analyzer 200 in 26ms
+ ✓ Compiled /api/ai/lease-analyzer in 204ms (798 modules)
+Lease Analyzer Error: TypeError: pdfParse is not a function
+    at POST (webpack-internal:///(rsc)/./src/app/api/ai/lease-analyzer/route.ts:22:31)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async /Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:57228
+    at async eT.execute (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:46851)
+    at async eT.handle (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/compiled/next-server/app-route.runtime.dev.js:6:58760)
+    at async doRender (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/base-server.js:1366:42)
+    at async cacheEntry.responseCache.get.routeKind (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/base-server.js:1588:28)
+    at async DevServer.renderToResponseWithComponentsImpl (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/base-server.js:1496:28)
+    at async DevServer.renderPageComponent (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/base-server.js:1924:24)
+    at async DevServer.renderToResponseImpl (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/base-server.js:1962:32)
+    at async DevServer.pipeImpl (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/base-server.js:922:25)
+    at async NextNodeServer.handleCatchallRenderRequest (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/next-server.js:272:17)
+    at async DevServer.handleRequestImpl (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/base-server.js:818:17)
+    at async /Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/dev/next-dev-server.js:339:20
+    at async Span.traceAsyncFn (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/trace/trace.js:154:20)
+    at async DevServer.handleRequest (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/dev/next-dev-server.js:336:24)
+    at async invokeRender (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/lib/router-server.js:182:21)
+    at async handleRequest (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/lib/router-server.js:359:24)
+    at async requestHandlerImpl (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/lib/router-server.js:383:13)
+    at async Server.requestListener (/Users/sibic/Documents/Projects/demon-hack/node_modules/next/dist/server/lib/start-server.js:141:13)
+ POST /api/ai/lease-analyzer 500 in 419ms
+ GET /matchmaker 200 in 40ms
+ GET /lease-analyzer 200 in 20ms
+ GET / 200 in 36ms
+ GET /api/listings/search? 200 in 203ms
+ GET /api/listings/search? 200 in 1491ms
+ ✓ Compiled in 640ms (1248 modules)
+   Reload env: .env.local
+ ✓ Compiled in 275ms (1463 modules)
+   Reload env: .env
+ ✓ Compiled in 106ms (1463 modules)
+   Reload env: .env
+ ✓ Compiled in 168ms (1463 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (192kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+   Reload env: .env
+ ✓ Compiled in 493ms (1463 modules)
+ ✓ Compiled in 308ms (1248 modules)
+ ✓ Compiled in 1533ms (1278 modules)
+ ✓ Compiled in 309ms (1247 modules)
+ ⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+  - Environments: .env.local, .env
+
+ ✓ Starting...
+It looks like you're trying to use TypeScript but do not have the required package(s) installed.
+Installing dependencies
+
+If you are not trying to use TypeScript, please remove the tsconfig.json file from your package root (and any TypeScript files in your pages directory).
+
+
+Installing devDependencies (npm):
+- @types/node
+
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+npm warn deprecated glob@10.3.10: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+
+added 298 packages, and audited 640 packages in 2s
+
+163 packages are looking for funding
+  run `npm fund` for details
+
+4 high severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+ ✓ Ready in 4.2s
