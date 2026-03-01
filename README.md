@@ -1,153 +1,220 @@
-# chi360 — Chicago. Every Angle, Every Insight.
-## Full-Stack Secure React + Node.js + Supabase App
+# chi360 🏙️
+
+> **Chicago intelligence, every angle.**
+
+chi360 is a full-stack urban intelligence platform built for Chicago — combining real-time market data, city analytics, air quality monitoring, housing insights, guided city tours, and transit tracking into a single seamless dashboard.
 
 ---
 
-## 🚀 Quick Start
+## What is chi360?
 
-### 1. Clone & Install
+chi360 brings together 6 powerful apps under one roof, giving Chicago residents, professionals, and visitors a 360° view of the city they live in.
+
+| App | Description |
+|---|---|
+| **Markets** | Real-time market intelligence & trading signals for Chicago-area assets |
+| **Skyline** | Deep neighborhood analytics, demographic trends & city data |
+| **Atmos** | Live air quality monitoring, pollution alerts & environmental data |
+| **Living** | AI-powered housing insights, price predictions & neighborhood comparisons |
+| **Discover** | Adaptive city tours, hidden gems & curated Chicago experiences |
+| **Transit** | Ghost bus detector, real-time CTA tracking & commute intelligence |
+
+---
+
+## Features
+
+- 🔐 **Secure Authentication** — Email/password login, Google OAuth, session management
+- 🛡️ **Two-Factor Authentication (2FA)** — TOTP-based with QR code setup & backup codes
+- 🔒 **Security Dashboard** — Login history, active sessions, device management
+- 👤 **User Profiles** — Personalized experience based on neighborhood & preferences
+- 🌙 **Dark UI** — Cinematic design with Chicago night skyline imagery
+- 📱 **Responsive** — Works across desktop and mobile
+
+---
+
+## Tech Stack
+
+### Frontend
+- **React** — UI framework
+- **React Router** — Client-side routing
+- **Plus Jakarta Sans** — Typography
+- Hosted on **Netlify / Vercel**
+
+### Backend
+- **Node.js + Express** — REST API server
+- **JWT** — Stateless authentication tokens
+- **bcryptjs** — Password hashing
+- **otplib** — TOTP 2FA generation & verification
+- **Helmet + CORS** — Security headers
+- **Rate limiting** — Brute force protection
+- Hosted on **Render**
+
+### Database
+- **Supabase (PostgreSQL)** — Users, sessions, login history, 2FA backup codes
+
+### OAuth
+- **Google OAuth 2.0** — Sign in with Google
+
+---
+
+## Project Structure
+
+```
+chi360/
+├── src/                    # React frontend
+│   ├── pages/
+│   │   ├── SignIn.js       # Login & register page
+│   │   ├── Profile.js      # Profile setup page
+│   │   ├── Welcome.js      # Main dashboard
+│   │   └── OAuthCallback.js# Google OAuth handler
+│   ├── components/
+│   │   ├── GlobeBackground.js
+│   │   └── HolographicOrb.js
+│   ├── context/
+│   │   └── UserContext.js  # Global auth state
+│   └── utils/
+│       └── api.js          # API client & token management
+│
+├── server/                 # Node.js backend
+│   ├── routes/
+│   │   ├── auth.js         # Auth routes (login, register, OAuth, 2FA)
+│   │   └── user.js         # User routes (sessions, history)
+│   ├── middleware/
+│   │   ├── auth.js         # JWT verification
+│   │   ├── security.js     # CSRF, validation, sanitization
+│   │   └── rateLimiter.js  # Rate limiting
+│   └── lib/
+│       └── supabase.js     # Supabase client
+│
+└── public/                 # Static assets
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js v18+
+- Supabase account
+- Google Cloud Console project (for OAuth)
+
+### Installation
 
 ```bash
-# Frontend
-cd chi360
+# Clone the repo
+git clone https://github.com/arthiya2002/Chi360.git
+cd Chi360
+
+# Install frontend dependencies
 npm install
 
-# Backend
+# Install backend dependencies
 cd server
 npm install
 ```
 
-### 2. Set up Supabase
+### Environment Variables
 
-1. Go to https://supabase.com → New project
-2. In **SQL Editor**, paste and run the contents of `server/supabase_schema.sql`
-3. Copy your **Project URL** and **service_role key** from Settings → API
-
-### 3. Configure Environment
-
-```bash
-cd server
-cp .env.example .env
-```
-
-Edit `.env`:
+Create `server/.env`:
 ```env
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_SERVICE_KEY=your-service-role-key
-JWT_SECRET=generate-32-char-random-string-here
-JWT_REFRESH_SECRET=another-32-char-random-string
-SESSION_TIMEOUT_MINUTES=15
-PORT=4000
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_KEY=your_supabase_service_key
+JWT_SECRET=your_jwt_secret
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_REDIRECT_URI=http://localhost:4000/api/auth/google/callback
 CLIENT_URL=http://localhost:3000
+SERVER_URL=http://localhost:4000
 NODE_ENV=development
+SESSION_TIMEOUT_MINUTES=15
 ```
 
-For React, create `chi360/.env`:
+Create `chi360/.env`:
 ```env
 REACT_APP_API_URL=http://localhost:4000/api
 ```
 
-### 4. Run
+### Run Locally
 
 ```bash
-# Terminal 1 — Backend
-cd server && npm run dev
+# Terminal 1 — Start backend
+cd server
+node index.js
 
-# Terminal 2 — Frontend
-cd chi360 && npm start
-```
-
----
-
-## 🔐 Security Features
-
-| Feature | Implementation |
-|---------|----------------|
-| **Password Strength Meter** | Real-time scoring (0-4) with checklist: length, uppercase, number, special char |
-| **TOTP 2FA** | `otplib` — scan QR code with Google Authenticator or Authy. 8 backup codes generated |
-| **Session Timeout** | 15-min idle timeout with 2-min warning modal + sliding window reset on activity |
-| **Login History** | Every login/failure/block logged to Supabase with IP, device, status, timestamp |
-| **Rate Limiting** | 5 login attempts / 15 min per IP · 5 2FA attempts / 10 min · 100 API req / 15 min |
-| **XSS Protection** | `xss` library sanitizes all request body fields server-side |
-| **CSRF Protection** | Double-submit cookie pattern — token in cookie + `x-csrf-token` header validated |
-| **Helmet** | 15+ HTTP security headers: CSP, HSTS, X-Frame-Options, etc. |
-| **Password Hashing** | `bcrypt` with 12 salt rounds — passwords never stored in plain text |
-| **JWT Sessions** | Tokens stored in `sessionStorage` (cleared on tab close) + server-side session table |
-
----
-
-## 📁 Project Structure
-
-```
-chi360/
-├── public/
-├── src/
-│   ├── components/
-│   │   ├── Background.js          # Animated topographic canvas
-│   │   ├── Card.js                # Glassmorphism card
-│   │   ├── Logo.js                # chi360 logo
-│   │   ├── PasswordStrengthMeter.js  # Real-time password checker
-│   │   ├── SessionWarning.js      # 15-min timeout modal
-│   │   └── LoginHistory.js        # Security panel (history + sessions)
-│   ├── context/
-│   │   └── UserContext.js         # Global auth state
-│   ├── hooks/
-│   │   └── useSessionTimeout.js   # Idle timer hook
-│   ├── pages/
-│   │   ├── SignIn.js              # Login + register (split screen)
-│   │   ├── TwoFactor.js           # TOTP 6-digit code entry
-│   │   ├── Profile.js             # Name + neighborhood setup
-│   │   └── Welcome.js             # App launcher dashboard
-│   └── utils/
-│       ├── api.js                 # Fetch wrapper with CSRF + JWT
-│       └── passwordStrength.js    # Strength scoring logic
-└── server/
-    ├── lib/
-    │   └── supabase.js            # Supabase client
-    ├── middleware/
-    │   ├── auth.js                # JWT verify + session timeout
-    │   ├── rateLimiter.js         # express-rate-limit configs
-    │   └── security.js            # Helmet + XSS + CSRF + validation
-    ├── routes/
-    │   ├── auth.js                # register, login, 2FA, logout
-    │   └── user.js                # login history, sessions
-    ├── supabase_schema.sql        # Full DB schema with RLS
-    ├── index.js                   # Express app entry
-    └── .env.example
-```
-
----
-
-## 🌐 API Endpoints
-
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| GET | `/api/csrf-token` | — | Get CSRF token |
-| POST | `/api/auth/register` | — | Create account |
-| POST | `/api/auth/login` | — | Sign in |
-| POST | `/api/auth/2fa/verify` | pre-token | Verify TOTP |
-| POST | `/api/auth/2fa/setup` | ✅ | Get QR code |
-| POST | `/api/auth/2fa/enable` | ✅ | Activate 2FA |
-| POST | `/api/auth/logout` | ✅ | Revoke session |
-| POST | `/api/auth/logout-all` | ✅ | Revoke all sessions |
-| GET | `/api/auth/me` | ✅ | Get current user |
-| GET | `/api/user/login-history` | ✅ | Login audit log |
-| GET | `/api/user/sessions` | ✅ | Active sessions |
-| DELETE | `/api/user/sessions/:id` | ✅ | Revoke session |
-
----
-
-## 🚢 Deploy
-
-### Backend → Railway / Render
-```bash
-# Set all env vars in dashboard, then:
-git push
-```
-
-### Frontend → Vercel
-```bash
+# Terminal 2 — Start frontend
 cd chi360
-REACT_APP_API_URL=https://your-backend.railway.app/api
-vercel --prod
+npm start
 ```
+
+Frontend runs on `http://localhost:3000`  
+Backend runs on `http://localhost:4000`
+
+---
+
+## Deployment
+
+| Service | Platform |
+|---|---|
+| Frontend | Netlify / Vercel |
+| Backend | Render |
+| Database | Supabase |
+
+---
+
+## Database Schema
+
+```sql
+-- Users
+CREATE TABLE users (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email TEXT UNIQUE NOT NULL,
+  password_hash TEXT,
+  name TEXT,
+  area TEXT,
+  totp_enabled BOOLEAN DEFAULT false,
+  totp_secret TEXT,
+  totp_verified BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Sessions
+CREATE TABLE sessions (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  token_hash TEXT,
+  device_info TEXT,
+  ip_address TEXT,
+  expires_at TIMESTAMPTZ,
+  is_revoked BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Login History
+CREATE TABLE login_history (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id),
+  email TEXT,
+  ip_address TEXT,
+  device_info TEXT,
+  status TEXT,
+  failure_reason TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+```
+
+---
+
+## Security Features
+
+- ✅ Password hashing with bcrypt (12 salt rounds)
+- ✅ JWT authentication with session expiry
+- ✅ CSRF token protection
+- ✅ Rate limiting on auth endpoints
+- ✅ XSS sanitization
+- ✅ Helmet security headers
+- ✅ TOTP two-factor authentication
+- ✅ Session revocation
+- ✅ Login history tracking
+
+---
