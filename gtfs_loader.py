@@ -1,28 +1,35 @@
 """
-gtfs_loader.py — Downloads and parses CTA GTFS zip into pandas DataFrames.
-Called once on startup; results cached in module-level globals.
+gtfs_loader.py — Downloads and parses CTA GTFS zip using built-in csv module.
+No pandas or numpy required. Same API as before.
 """
 
+import csv
 import io
 import os
 import zipfile
 import requests
-import pandas as pd
 import math
 
 GTFS_URL = "https://www.transitchicago.com/downloads/sch_data/google_transit.zip"
 CACHE_DIR = os.path.join(os.path.dirname(__file__), "_gtfs_cache")
 
-# Module-level caches
-stops_df = None
-routes_df = None
-trips_df = None
+# Module-level caches (list of dicts instead of DataFrames)
+stops_df      = None
+routes_df     = None
+trips_df      = None
 stop_times_df = None
-_loaded = False
+_loaded       = False
+
+
+def _read_csv_from_zip(z, filename):
+    """Read a CSV file from zip and return list of dicts."""
+    with z.open(filename) as f:
+        content = f.read().decode("utf-8-sig")
+        reader  = csv.DictReader(io.StringIO(content))
+        return [row for row in reader]
 
 
 def _download_gtfs() -> bytes:
-    """Download GTFS zip and return raw bytes."""
     print("📥 Downloading CTA GTFS data from transitchicago.com ...")
     r = requests.get(GTFS_URL, timeout=120)
     r.raise_for_status()
@@ -31,31 +38,31 @@ def _download_gtfs() -> bytes:
 
 
 def _load_from_zip(zip_bytes: bytes):
-    """Parse needed CSV files from zip bytes and return DataFrames."""
     with zipfile.ZipFile(io.BytesIO(zip_bytes)) as z:
-        names = z.namelist()
-        print(f"   ↳ Files in zip: {names}")
+        print(f"   ↳ Files in zip: {z.namelist()}")
+        stops      = _read_csv_from_zip(z, "stops.txt")
+        routes     = _read_csv_from_zip(z, "routes.txt")
+        trips      = _read_csv_from_zip(z, "trips.txt")
+        stop_times = _read_csv_from_zip(z, "stop_times.txt")
 
-        stops      = pd.read_csv(z.open("stops.txt"),      dtype=str)
-        routes     = pd.read_csv(z.open("routes.txt"),     dtype=str)
-        trips      = pd.read_csv(z.open("trips.txt"),      dtype=str)
-        stop_times = pd.read_csv(z.open("stop_times.txt"), dtype=str)
+    for s in stops:
+        try:
+            s["stop_lat"] = float(s.get("stop_lat", 0))
+            s["stop_lon"] = float(s.get("stop_lon", 0))
+        except (ValueError, TypeError):
+            s["stop_lat"] = 0.0
+            s["stop_lon"] = 0.0
 
-    for df in [stops, routes, trips, stop_times]:
-        df.columns = df.columns.str.strip()
-
-    stops["stop_lat"] = pd.to_numeric(stops["stop_lat"], errors="coerce")
-    stops["stop_lon"] = pd.to_numeric(stops["stop_lon"], errors="coerce")
-    stop_times["stop_sequence"] = pd.to_numeric(stop_times["stop_sequence"], errors="coerce")
+    for st in stop_times:
+        try:
+            st["stop_sequence"] = int(st.get("stop_sequence", 0))
+        except (ValueError, TypeError):
+            st["stop_sequence"] = 0
 
     return stops, routes, trips, stop_times
 
 
 def load_gtfs(force_reload: bool = False):
-    """
-    Load GTFS data into module globals.
-    Downloads fresh copy if cache doesn't exist or force_reload=True.
-    """
     global stops_df, routes_df, trips_df, stop_times_df, _loaded
 
     if _loaded and not force_reload:
@@ -85,10 +92,7 @@ def load_gtfs(force_reload: bool = False):
     )
 
 
-# ─── Query helpers ────────────────────────────────────────────────────────────
-
 def haversine(lat1, lon1, lat2, lon2):
-    """Return distance in metres between two lat/lon points."""
     R = 6_371_000
     phi1, phi2 = math.radians(lat1), math.radians(lat2)
     dphi    = math.radians(lat2 - lat1)
@@ -97,46 +101,55 @@ def haversine(lat1, lon1, lat2, lon2):
     return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
 
-def search_stops_by_name(query: str, limit: int = 10) -> list[dict]:
-    """Return stops whose names contain the query string (case-insensitive)."""
+def search_stops_by_name(query: str, limit: int = 10) -> list:
     if stops_df is None:
         return []
-    q    = query.lower().strip()
-    mask = stops_df["stop_name"].str.lower().str.contains(q, na=False)
-    return stops_df[mask][["stop_id","stop_name","stop_lat","stop_lon"]].head(limit).to_dict(orient="records")
+    q = query.lower().strip()
+    results = []
+    for s in stops_df:
+        if q in s.get("stop_name", "").lower():
+            results.append({
+                "stop_id":   s["stop_id"],
+                "stop_name": s["stop_name"],
+                "stop_lat":  s["stop_lat"],
+                "stop_lon":  s["stop_lon"],
+            })
+        if len(results) >= limit:
+            break
+    return results
 
 
-def find_nearest_stops(lat: float, lon: float, radius_m: float = 500, limit: int = 5) -> list[dict]:
-    """Return stops within radius_m metres of lat/lon, sorted by distance."""
+def find_nearest_stops(lat: float, lon: float, radius_m: float = 500, limit: int = 5) -> list:
     if stops_df is None:
         return []
-    df   = stops_df.dropna(subset=["stop_lat","stop_lon"]).copy()
     dlat = radius_m / 111_000
     dlon = radius_m / (111_000 * math.cos(math.radians(lat)))
-    mask = (
-        df["stop_lat"].between(lat - dlat, lat + dlat) &
-        df["stop_lon"].between(lon - dlon, lon + dlon)
-    )
-    nearby = df[mask].copy()
-    nearby["distance_m"] = nearby.apply(
-        lambda r: haversine(lat, lon, r["stop_lat"], r["stop_lon"]), axis=1
-    )
-    nearby = nearby[nearby["distance_m"] <= radius_m].sort_values("distance_m")
-    return nearby[["stop_id","stop_name","stop_lat","stop_lon","distance_m"]].head(limit).to_dict(orient="records")
+    nearby = []
+    for s in stops_df:
+        slat = s["stop_lat"]
+        slon = s["stop_lon"]
+        if slat == 0 or slon == 0:
+            continue
+        if abs(slat - lat) > dlat or abs(slon - lon) > dlon:
+            continue
+        dist = haversine(lat, lon, slat, slon)
+        if dist <= radius_m:
+            nearby.append({
+                "stop_id":    s["stop_id"],
+                "stop_name":  s["stop_name"],
+                "stop_lat":   slat,
+                "stop_lon":   slon,
+                "distance_m": dist,
+            })
+    nearby.sort(key=lambda x: x["distance_m"])
+    return nearby[:limit]
 
 
-def get_next_arrivals(stop_id: str, now_seconds: int, limit: int = 5) -> list[dict]:
-    """
-    Return the next scheduled arrivals at stop_id after now_seconds.
-    Handles >24h times (overnight trips).
-    """
+def get_next_arrivals(stop_id: str, now_seconds: int, limit: int = 5) -> list:
     if stop_times_df is None or trips_df is None or routes_df is None:
         return []
 
     sid = str(stop_id)
-    st  = stop_times_df[stop_times_df["stop_id"] == sid][["trip_id","arrival_time"]].copy()
-    if st.empty:
-        return []
 
     def to_seconds(t):
         try:
@@ -145,50 +158,58 @@ def get_next_arrivals(stop_id: str, now_seconds: int, limit: int = 5) -> list[di
         except Exception:
             return -1
 
-    st["secs"] = st["arrival_time"].apply(to_seconds)
-    future = st[(st["secs"] >= now_seconds) & (st["secs"] <= now_seconds + 10800)].copy()
-    future = future.sort_values("secs").head(limit)
+    trips_by_id  = {t["trip_id"]: t for t in trips_df}
+    routes_by_id = {r["route_id"]: r for r in routes_df}
 
-    trips_cols = ["trip_id","route_id"]
-    if "trip_headsign" in trips_df.columns:
-        trips_cols.append("trip_headsign")
+    future = []
+    for st in stop_times_df:
+        if st["stop_id"] != sid:
+            continue
+        secs = to_seconds(st["arrival_time"])
+        if now_seconds <= secs <= now_seconds + 10800:
+            future.append((secs, st))
 
-    merged = future.merge(trips_df[trips_cols], on="trip_id", how="left")
-    if "trip_headsign" not in merged.columns:
-        merged["trip_headsign"] = ""
-
-    merged = merged.merge(
-        routes_df[["route_id","route_short_name","route_long_name"]],
-        on="route_id", how="left"
-    )
+    future.sort(key=lambda x: x[0])
+    future = future[:limit]
 
     results = []
-    for _, row in merged.iterrows():
-        secs_away   = int(row["secs"]) - now_seconds
-        minutes_away = secs_away // 60
+    for secs, st in future:
+        trip   = trips_by_id.get(st["trip_id"], {})
+        route  = routes_by_id.get(trip.get("route_id", ""), {})
+        mins   = (secs - now_seconds) // 60
         results.append({
-            "route_short":  row.get("route_short_name", "?"),
-            "route_long":   row.get("route_long_name",  "?"),
-            "headsign":     row.get("trip_headsign",    ""),
-            "arrival_time": row["arrival_time"],
-            "minutes_away": minutes_away,
-            "ghost_risk":   minutes_away < 0 or minutes_away > 60,
+            "route_short":  route.get("route_short_name", "?"),
+            "route_long":   route.get("route_long_name",  "?"),
+            "headsign":     trip.get("trip_headsign",     ""),
+            "arrival_time": st["arrival_time"],
+            "minutes_away": mins,
+            "ghost_risk":   mins < 0 or mins > 60,
         })
 
     return results
 
 
 def get_routes_near(lat: float, lon: float, radius_m: float = 400):
-    """Return list of routes serving stops within radius_m of lat/lon."""
     if stop_times_df is None:
         return [], []
+
     nearby_stops = find_nearest_stops(lat, lon, radius_m, limit=10)
     if not nearby_stops:
         return [], []
-    stop_ids = [s["stop_id"] for s in nearby_stops]
-    st = stop_times_df[stop_times_df["stop_id"].isin(stop_ids)][["trip_id"]].drop_duplicates()
-    t  = trips_df[trips_df["trip_id"].isin(st["trip_id"])][["route_id"]].drop_duplicates()
-    r  = routes_df[routes_df["route_id"].isin(t["route_id"])][
-        ["route_id","route_short_name","route_long_name"]
-    ].drop_duplicates()
-    return r.to_dict(orient="records"), nearby_stops
+
+    stop_ids  = {s["stop_id"] for s in nearby_stops}
+    trip_ids  = {st["trip_id"] for st in stop_times_df if st["stop_id"] in stop_ids}
+    route_ids = {t["route_id"] for t in trips_df if t["trip_id"] in trip_ids}
+
+    routes = []
+    seen   = set()
+    for r in routes_df:
+        if r["route_id"] in route_ids and r["route_id"] not in seen:
+            routes.append({
+                "route_id":         r["route_id"],
+                "route_short_name": r.get("route_short_name", ""),
+                "route_long_name":  r.get("route_long_name",  ""),
+            })
+            seen.add(r["route_id"])
+
+    return routes, nearby_stops
