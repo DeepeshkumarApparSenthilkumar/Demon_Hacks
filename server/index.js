@@ -26,7 +26,15 @@ const cache = new NodeCache({ stdTTL: 60 }); // 60s default TTL
 // ─── App setup ───────────────────────────────────────────────────────────────
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: ["http://localhost:5173", "http://localhost:4173"] }));
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:4173",
+    "https://chi-trade.vercel.app",
+    /\.vercel\.app$/,
+  ],
+  credentials: true,
+}));
 
 // Rate limiting
 const limiter = rateLimit({ windowMs: 60_000, max: 60, message: { error: "Too many requests" } });
