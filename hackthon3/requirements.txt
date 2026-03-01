@@ -1,0 +1,9 @@
+flask==3.1.0
+flask-cors==5.0.0
+requests==2.32.3
+anthropic==0.49.0
+pytz==2024.2
+pandas==2.2.3
+numpy==2.2.3
+python-dotenv
+gunicorn
