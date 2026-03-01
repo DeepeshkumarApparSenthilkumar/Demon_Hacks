@@ -51,11 +51,13 @@ export default function SignIn() {
   const [appleHover, setAppleHover] = useState(false);
 
   const handleGoogleSignIn = () => {
-    window.location.href = 'http://localhost:4000/api/auth/google';
+    const api = (process.env.REACT_APP_API_URL || 'http://localhost:4000/api').replace('/api', '');
+    window.location.href = `${api}/api/auth/google`;
   };
 
   const handleAppleSignIn = () => {
-    window.location.href = 'http://localhost:4000/api/auth/apple';
+    const api = (process.env.REACT_APP_API_URL || 'http://localhost:4000/api').replace('/api', '');
+    window.location.href = `${api}/api/auth/apple`;
   };
 
   const handleSubmit = async () => {
